@@ -2,15 +2,15 @@ from display import *
 from matrix import *
 
 
-def add_circle( points, cx, cy, r, step ):
-    add_curve( points, )
+def add_circle( points, cx, cy, cz, r, step ):
+    
     pass
 
-def add_curve( points, x0, y0, x1, y1, x2, y2, r_or_x3, r_or_y3, step, curve_type ):
-    if (curve_type == "hermite"):
+def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
+    if (curve_type == 'hermite'):
         output = []
         append(matrix,output)
-    elif (curve_type == "bezier"):
+    elif (curve_type == 'bezier'):
         pass
     else:
         print("Please choose a suitable curve type: bezier or hermite.")

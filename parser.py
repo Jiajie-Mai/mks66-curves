@@ -9,7 +9,7 @@ The file follows the following format:
      Any command that requires arguments must have those arguments in the second line.
      The commands are as follows:
 
-	 circle: add a circle to the edge matrix - 
+	 circle: add a circle to the edge matrix -
 	         takes 4 arguments (cx, cy, cz, r)
 	 hermite: add a hermite curve to the edge matrix -
 	          takes 8 arguments (x0, y0, x1, y1, rx0, ry0, rx1, ry1)
@@ -57,7 +57,7 @@ def parse_file( fname, edges, transform, screen, color ):
             c+= 1
             args = lines[c].strip().split(' ')
 
-        if line == 'line':            
+        if line == 'line':
             #print 'LINE\t' + str(args)
 
             add_edge( edges,
@@ -77,7 +77,7 @@ def parse_file( fname, edges, transform, screen, color ):
         elif line == 'rotate':
             #print 'ROTATE\t' + str(args)
             theta = float(args[1]) * (math.pi / 180)
-            
+
             if args[0] == 'x':
                 t = make_rotX(theta)
             elif args[0] == 'y':
@@ -85,7 +85,7 @@ def parse_file( fname, edges, transform, screen, color ):
             else:
                 t = make_rotZ(theta)
             matrix_mult(t, transform)
-                
+
         elif line == 'ident':
             ident(transform)
 
@@ -100,5 +100,34 @@ def parse_file( fname, edges, transform, screen, color ):
                 display(screen)
             else:
                 save_extension(screen, args[0])
-            
+
+        elif line == 'circle':
+            cx = args[1]
+            cy = args[2]
+            cz = args[3]
+            r =  args[4]
+            add_circle(cx,cy,cz,r)
+
+        elif line == 'hermite':
+            x0 = args[1]
+            y0 = args[2]
+            x1 = args[3]
+            y1 = args[4]
+            rx0 = args[5]
+            ry0 = args[6]
+            rx1 = args[7]
+            rx1 = args[8]
+            add_curve(x0,y0,x1,y1,rx0,ry0,rx1,ry1,'''step''','hermite')
+
+        elif line == 'bezier':
+            x0 = args[1]
+            y0 = args[2]
+            x1 = args[3]
+            y1 = args[4]
+            x2 = args[5]
+            y2 = args[6]
+            x3 = args[7]
+            y3 = args[8]
+            add_curve(x0,y0,x1,y1,x2,y2,x3,y3,'''step''','bezier')
+
         c+= 1

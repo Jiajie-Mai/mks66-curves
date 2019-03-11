@@ -28,7 +28,11 @@ def make_hermite():
     return output
 
 def generate_curve_coefs( p0, p1, p2, p3, t ):
-    pass
+    a = (-1 * p0) + (3 * p1) + (- 3 * p2) + p3
+    b = (3 * p0) + (-6 * p1) + (3 * p2)
+    c = (-3 * p0) + (3 * p1)
+    d = p0
+    pt = (a * t ** 3) + (b * t ** 3) + (c * t) + d
 
 
 def make_translate( x, y, z ):
