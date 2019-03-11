@@ -16,10 +16,16 @@ def make_bezier():
 def make_hermite():
     output = new_matrix()
     output[0][0] = 2
-    output[0][1] = -2
-    output[0][2] = 1
+    output[1][0] = -2
+    output[2][0] = 1
+    output[3][0] = 1
+    output[0][1] = -3
+    output[1][1] = 3
+    output[2][1] = -2
+    output[3][1] = -1
+    output[2][2] = 1
     output[0][3] = 1
-    pass
+    return output
 
 def generate_curve_coefs( p0, p1, p2, p3, t ):
     pass

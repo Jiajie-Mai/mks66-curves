@@ -7,9 +7,10 @@ def add_circle( points, cx, cy, r, step ):
     pass
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, r_or_x3, r_or_y3, step, curve_type ):
-    if (curve_type == hermite):
-        pass
-    elif (curve_type == bezier):
+    if (curve_type == "hermite"):
+        output = []
+        append(matrix,output)
+    elif (curve_type == "bezier"):
         pass
     else:
         print("Please choose a suitable curve type: bezier or hermite.")
