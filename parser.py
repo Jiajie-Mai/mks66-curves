@@ -117,7 +117,7 @@ def parse_file( fname, edges, transform, screen, color ):
             ry0 = args[6]
             rx1 = args[7]
             rx1 = args[8]
-            add_curve(x0,y0,x1,y1,rx0,ry0,rx1,ry1,'''step''','hermite')
+            add_curve(x0,y0,x1,y1,rx0,ry0,rx1,ry1,0.1,'hermite')
 
         elif line == 'bezier':
             x0 = args[1]
@@ -128,6 +128,6 @@ def parse_file( fname, edges, transform, screen, color ):
             y2 = args[6]
             x3 = args[7]
             y3 = args[8]
-            add_curve(x0,y0,x1,y1,x2,y2,x3,y3,'''step''','bezier')
+            add_curve(x0,y0,x1,y1,x2,y2,x3,y3,0.1,'bezier')
 
         c+= 1

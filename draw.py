@@ -3,13 +3,15 @@ from matrix import *
 
 
 def add_circle( points, cx, cy, cz, r, step ):
-    
+    '''
+    x = r * sin( theta )
+    y = r * cos( theta )
+    '''
     pass
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
     if (curve_type == 'hermite'):
-        output = []
-        append(matrix,output)
+        pass
     elif (curve_type == 'bezier'):
         pass
     else:
@@ -36,6 +38,12 @@ def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
     add_point(matrix, x1, y1, z1)
 
 def add_point( matrix, x, y, z=0 ):
+    i = 0
+    while i < len(matrix):
+        if(matrix[i][3] == 0):
+            matrix[i] = [x, y, z, 1]
+            return
+        i += 1
     matrix.append( [x, y, z, 1] )
 
 
