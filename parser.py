@@ -8,15 +8,12 @@ The file follows the following format:
      Every command is a single character that takes up a line
      Any command that requires arguments must have those arguments in the second line.
      The commands are as follows:
-
 	 circle: add a circle to the edge matrix -
 	         takes 4 arguments (cx, cy, cz, r)
 	 hermite: add a hermite curve to the edge matrix -
 	          takes 8 arguments (x0, y0, x1, y1, rx0, ry0, rx1, ry1)
 	 bezier: add a bezier curve to the edge matrix -
 	         takes 8 arguments (x0, y0, x1, y1, x2, y2, x3, y3)
-
-
          line: add a line to the edge matrix -
                takes 6 arguemnts (x0, y0, z0, x1, y1, z1)
          ident: set the transform matrix to the identity matrix -
@@ -38,10 +35,9 @@ The file follows the following format:
                save the screen to a file -
                takes 1 argument (file name)
          quit: end parsing
-
 See the file script for an example of the file format
 """
-ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save' ]
+ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'hermite', 'bezier', 'circle' ]
 
 def parse_file( fname, edges, transform, screen, color ):
 
@@ -101,33 +97,17 @@ def parse_file( fname, edges, transform, screen, color ):
             else:
                 save_extension(screen, args[0])
 
-        elif line == 'circle':
-            cx = args[1]
-            cy = args[2]
-            cz = args[3]
-            r =  args[4]
-            add_circle(cx,cy,cz,r)
+        elif line == 'bezier':
+            add_curve(edges,float(args[0]),float(args[1]),float(args[2]),float(args[3]),
+                            float(args[4]),float(args[5]),float(args[6]),float(args[7]),
+                            0.01,'bezier')
 
         elif line == 'hermite':
-            x0 = args[1]
-            y0 = args[2]
-            x1 = args[3]
-            y1 = args[4]
-            rx0 = args[5]
-            ry0 = args[6]
-            rx1 = args[7]
-            rx1 = args[8]
-            add_curve(x0,y0,x1,y1,rx0,ry0,rx1,ry1,0.1,'hermite')
+            add_curve(edges,float(args[0]),float(args[1]),float(args[2]),float(args[3]),
+                            float(args[4]),float(args[5]),float(args[6]),float(args[7]),
+                            0.01,'hermite')
 
-        elif line == 'bezier':
-            x0 = args[1]
-            y0 = args[2]
-            x1 = args[3]
-            y1 = args[4]
-            x2 = args[5]
-            y2 = args[6]
-            x3 = args[7]
-            y3 = args[8]
-            add_curve(x0,y0,x1,y1,x2,y2,x3,y3,0.1,'bezier')
+        elif line == 'circle':
+            add_circle(edges,float(args[0]),float(args[1]),float(args[2]),float(args[3]),0.01)
 
         c+= 1

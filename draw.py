@@ -3,20 +3,31 @@ from matrix import *
 
 
 def add_circle( points, cx, cy, cz, r, step ):
-    '''
-    x = r * sin( theta )
-    y = r * cos( theta )
-    '''
-    pass
+    t = 0
+    while t <= 1:
+        inside = t * 2 * math.pi
+        x = cx + r * math.sin( inside )
+        y = cy + r * math.cos( inside )
+        nt = t + step
+        inside = nt * 2 * math.pi
+        nx = cx + r * math.sin( inside )
+        ny = cy + r * math.cos( inside )
+        add_edge(points,x,y,cz,nx,ny,cz)
+        t += step
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
-    if (curve_type == 'hermite'):
-        pass
-    elif (curve_type == 'bezier'):
-        pass
-    else:
-        print("Please choose a suitable curve type: bezier or hermite.")
-    pass
+    xCoef = generate_curve_coefs(x0,x1,x2,x3,curve_type)
+    yCoef = generate_curve_coefs(y0,y1,y2,y3,curve_type)
+    t = 0
+    while t <= 1:
+        x = (xCoef[0] * (t ** 3)) + (xCoef[1] * (t ** 2)) + (xCoef[2] * (t)) + (xCoef[3])
+        y = (yCoef[0] * (t ** 3)) + (yCoef[1] * (t ** 2)) + (yCoef[2] * (t)) + (yCoef[3])
+        nt = t + step
+        nx = (xCoef[0] * (nt ** 3)) + (xCoef[1] * (nt ** 2)) + (xCoef[2] * (nt)) + (xCoef[3])
+        ny = (yCoef[0] * (nt ** 3)) + (yCoef[1] * (nt ** 2)) + (yCoef[2] * (nt)) + (yCoef[3])
+        add_edge(points,x,y,0,nx,ny,0)
+        t += step
+
 
 
 def draw_lines( matrix, screen, color ):
@@ -31,6 +42,7 @@ def draw_lines( matrix, screen, color ):
                    int(matrix[point+1][0]),
                    int(matrix[point+1][1]),
                    screen, color)
+        print("Drew line from " + str(int(matrix[point][0])) + " " + str(int(matrix[point][1])) + " to " + str(matrix[point+1][0]) + " " + str(matrix[point+1][1]))
         point+= 2
 
 def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
